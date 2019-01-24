@@ -650,6 +650,7 @@ My functions that I have separated out for assignment 2
 //Smithy
 void playSmithy(struct gameState *state, int currentPlayer, int handPos)
 {
+  int i;
   for (i = 0; i < 3; i++)
   {
     drawCard(currentPlayer, state);
@@ -663,6 +664,10 @@ void playSmithy(struct gameState *state, int currentPlayer, int handPos)
 //Adventurer
 void playAdventurer(struct gameState *state, int currentPlayer)
 {
+  int z=0;
+  int drawntreasure=0;
+  int cardDrawn;
+  int temphand[MAX_HAND];
   while(drawntreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
@@ -689,6 +694,7 @@ void playAdventurer(struct gameState *state, int currentPlayer)
 void playCouncilRoom(struct gameState *state, int currentPlayer, int handPos)
 {
   //+4 Cards
+  int i;
   for (i = 0; i < 4; i++)
   {
     drawCard(currentPlayer, state);
@@ -717,6 +723,9 @@ void playFeast(struct gameState *state, int currentPlayer, int choice1)
 {
   //gain card with cost up to 5
   //Backup hand
+  int i;
+  int x;
+  int temphand[MAX_HAND];
   for (i = 0; i <= state->handCount[currentPlayer]; i++)
   {
     temphand[i] = state->hand[currentPlayer][i];//Backup card
@@ -770,6 +779,8 @@ void playFeast(struct gameState *state, int currentPlayer, int choice1)
 //mine
 void playMine(struct gameState *state, int currentPlayer, int choice1, int choice2)
 {
+  int j;
+  int i;
   j = state->hand[currentPlayer][choice1];  //store card we will trash
 
   if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
@@ -814,16 +825,16 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   int i;
   int j;
   int k;
-  int x;
+  //int x;
   int index;
   int currentPlayer = whoseTurn(state);
   int nextPlayer = currentPlayer + 1;
 
   int tributeRevealedCards[2] = {-1, -1};
-  int temphand[MAX_HAND];// moved above the if statement
-  int drawntreasure=0;
-  int cardDrawn;
-  int z = 0;// this is the counter for the temp hand
+  //int temphand[MAX_HAND];// moved above the if statement
+  //int drawntreasure=0;
+  //int cardDrawn;
+  //int z = 0;// this is the counter for the temp hand
   if (nextPlayer > (state->numPlayers - 1))
   {
     nextPlayer = 0;

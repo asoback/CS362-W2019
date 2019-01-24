@@ -773,11 +773,11 @@ void playFeast(struct gameState *state, int currentPlayer, int choice1)
     temphand[i] = -1;
   }
             
-  return 0;
+  return;
 }
 
 //mine
-void playMine(struct gameState *state, int currentPlayer, int choice1, int choice2)
+int playMine(struct gameState *state, int currentPlayer, int choice1, int choice2, int handPos)
 {
   int j;
   int i;
@@ -813,7 +813,7 @@ void playMine(struct gameState *state, int currentPlayer, int choice1, int choic
     }
   }  
   
-  return;
+  return 0;
 }
 
 
@@ -862,8 +862,14 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return -1;
 			
     case mine:
-      playMine(state, currentPlayer, choice1, choice2);
-      return 0;
+      if(playMine(state, currentPlayer, choice1, choice2, handpos) == 0)
+      {
+        return 0;
+      }
+      else
+      {
+        return -1;
+      }
 			
     case remodel:
       j = state->hand[currentPlayer][choice1];  //store card we will trash

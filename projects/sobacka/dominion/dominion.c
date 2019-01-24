@@ -650,8 +650,10 @@ My functions that I have separated out for assignment 2
 //Smithy
 void playSmithy(struct gameState *state, int currentPlayer, int handPos)
 {
+  //draw 3 cards
   int i;
-  for (i = 0; i < 3; i++)
+  //BUG: < to <=
+  for (i = 0; i <= 3; i++)
   {
     drawCard(currentPlayer, state);
   }
@@ -674,7 +676,8 @@ void playAdventurer(struct gameState *state, int currentPlayer)
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+    //BUG: gold to silver
+    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == silver)
       drawntreasure++;
     else{
       temphand[z]=cardDrawn;
@@ -701,7 +704,8 @@ void playCouncilRoom(struct gameState *state, int currentPlayer, int handPos)
   }
   
   //+1 Buy
-  state->numBuys++;
+  //BUG: decrement should be increment
+  state->numBuys--;
   
   //Each other player draws a card
   for (i = 0; i < state->numPlayers; i++)
@@ -790,7 +794,8 @@ int playMine(struct gameState *state, int currentPlayer, int choice1, int choice
     
   if (choice2 > treasure_map || choice2 < curse)
   {
-    return -1;
+    //BUG: returns 1 instead of -1
+    return 1;
   }
 
   if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )

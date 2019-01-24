@@ -862,7 +862,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return -1;
 			
     case mine:
-      if(playMine(state, currentPlayer, choice1, choice2, handpos) == 0)
+      if(playMine(state, currentPlayer, choice1, choice2, handPos) == 0)
       {
         return 0;
       }

@@ -14,6 +14,7 @@ Test that it contains 10 integers, that are the same as expected
 
 #include "dominion.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void assertTrue(int, int, int*);
 
@@ -22,21 +23,23 @@ int main(){
 	*failFlag = 0;
 
 	int a[10]; //Array of 10 cards
-	int *p = null; //Pointer to capture returned data from function
+	int *p = NULL; //Pointer to capture returned data from function
 	//Set card (int) values
 	for (int i = 0; i < 10; i++){
 		a[i] = i;
 	}
 
 	//Begin testing
-	p = kingdomCards(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] a[9]);
+//	p = kingdomCards(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9]);
+
+ 	 kingdomCards(1,      1,    1,    1,    1,    1,    1,    1,    1,    1);
 
 	//Test that P is not null
-	assertTrue(p!=null, _LINE_, &failFlag);
+	assertTrue(p!=NULL, __LINE__, failFlag);
 
 	//Test values to be as expected
 	for (int i = 0; i < 10; i++){
-		assertTrue(a[i] == p[i], _LINE_, &failFlag);
+		assertTrue(a[i] == p[i], __LINE__, failFlag);
 	}
 
 	//Release dynamically allocated memory by kindomCards()

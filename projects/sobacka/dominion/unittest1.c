@@ -12,6 +12,7 @@ Test that a pointer is returned, and is not null
 Test that it contains 10 integers, that are the same as expected
 */
 
+#include "rngs.h"
 #include "dominion.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,29 +20,29 @@ Test that it contains 10 integers, that are the same as expected
 void assertTrue(int, int, int*);
 
 int main(){
-	int *failFlag;
-	*failFlag = 0;
-
+	int val = 0;	
+int *failFlag;
+	failFlag = &val;
+	int i;
 	int a[10]; //Array of 10 cards
 	int *p = NULL; //Pointer to capture returned data from function
 	//Set card (int) values
-	for (int i = 0; i < 10; i++){
+	
+	for (i = 0; i < 10; i++){
 		a[i] = i;
 	}
 
 	//Begin testing
-//	p = kingdomCards(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9]);
-
- 	 kingdomCards(1,      1,    1,    1,    1,    1,    1,    1,    1,    1);
-
+	p = kingdomCards(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9]);
+	
 	//Test that P is not null
 	assertTrue(p!=NULL, __LINE__, failFlag);
-
+	
 	//Test values to be as expected
-	for (int i = 0; i < 10; i++){
+	for (i = 0; i < 10; i++){
 		assertTrue(a[i] == p[i], __LINE__, failFlag);
 	}
-
+	
 	//Release dynamically allocated memory by kindomCards()
 	free(p);
 
@@ -52,7 +53,7 @@ int main(){
 }
 
 void assertTrue(int value, int line, int* failFlag){
-	if(value != 0){
+	if(value == 0){
 		printf("Error on line %d\n", line);
 		*failFlag = 1;
 	}

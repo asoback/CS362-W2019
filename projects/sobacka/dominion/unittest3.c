@@ -17,6 +17,7 @@ To test:
 #include "dominion.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "rngs.h"
 
 void assertTrue(int, int, int*);
 
@@ -42,7 +43,7 @@ int main(){
     for (i = 0; i < G.handCount[currentPlayer]; i++){
     	if (G.hand[currentPlayer][i] == copper) {c++;}
       	else if (G.hand[currentPlayer][i] == silver) {s++;}
-      	else if (G.hand[player][i] == gold) {g++;}
+      	else if (G.hand[currentPlayer][i] == gold) {g++;}
     }
     //copper + silver + gold minus G->coins should equal 0 if correct
     assertTrue( c + (s*2) + (g*3) - G.coins, __LINE__, failFlag);

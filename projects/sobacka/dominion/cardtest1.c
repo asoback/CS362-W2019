@@ -6,6 +6,8 @@ Assignment 3
 Tests smithy
 Smithy gains the player 3 cards from their deck to their hand, when played.
 
+Should fail due to bug introduced for assignment 2. Incorrect number of cards
+
 Test:
 	Make sure the card count in hand is 2 more than before (+3 -1 for the played smithy card)
 	Make sure the deck comtains two less cards than before
@@ -21,15 +23,13 @@ Testing that the cards came from the deck and are now in the hand should be done
 void assertTrue(int, int, int*);
 
 int main(){
+	int val = 0;
 	int *failFlag;
-	*failFlag = 0;
+	failFlag = &val;
+	int i;
 
 	//Variables to save for comparison against gamestate
 	int currentPlayer, handCount, deckCount, playedCardCount, smithyPosition;
-
-	int hand[MAX_HAND];
-  	int deck[MAX_DECK];
-  	int playedCards[MAX_DECK];
 
 	int k[10] = {smithy, adventurer, council_room, village, minion, mine, cutpurse, sea_hag, tribute, ambassador};
   	struct gameState G;
@@ -40,25 +40,14 @@ int main(){
   	// Get hand count
   	handCount = G.handCount[currentPlayer];
 
-  	// Get what is in hand
-  	int i;
-  	for(i = 0; i < handCount; i++){
-  		hand[i] = G.hand[currentPlayer][i];
-  	}
-
   	// Get deck count
   	deckCount = G.deckCount[currentPlayer];
-
-  	// Get what is in deck
-  	for(i=0; i < deckCount; i++){
-  		deck[i] = G.deck[currentPlayer][i];
-  	}
 
 	// Add a Smithy to hand
   	gainCard(smithy, &G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
 
   	// Get smithy position
-  	for(i = 0; i < handCount; i++){
+  	for(i = 0; i <= handCount; i++){
   		if( G.hand[currentPlayer][i] == smithy){
   			smithyPosition = i;
   			break;
@@ -73,38 +62,21 @@ int main(){
   	// Check that the number of cards in hand is 3 more than previously
   	assertTrue(G.handCount[currentPlayer] == handCount + 3, __LINE__, failFlag);
 
-  	// Check what is in hand, determine what is new
-  	int countdown = G.handCount[currentPlayer];
-  	int j;
-  	int gainedCard[3];
-  	int k = 0; //Used to count up for gainedCard array
-
-  	for (i = 0; i < G.handCount[currentPlayer]){ 		// For every card in the hand now
-  		for(j = 0; j < handCount; j++){  				// For every card that was in the hand before
-  			if(hand[j] == G.hand[currentPlayer][i]){	
-  				--countdown;
-  				break;
-  			}
-  		}
-  	}
-  	assertTrue(countdown==3, __LINE__, failFlag)
-
   	// Check deck contains 2 less than before
   	assertTrue(G.deckCount[currentPlayer] == deckCount - 3, __LINE__, failFlag);
   	
   	// Check that smithy has been played
   	assertTrue(G.playedCards[0] == smithy, __LINE__, failFlag);
 
-
 	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 1 \n");
-    else printf("TEST FAILED: Card Test 1 \n");
+   	else printf("TEST FAILED: Card Test 1 \n");
 
 	return 0;
 }
 
 
 void assertTrue(int value, int line, int* failFlag){
-	if(value != 0){
+	if(value == 0){
 		printf("Error on line %d\n", line);
 		*failFlag = 1;
 	}

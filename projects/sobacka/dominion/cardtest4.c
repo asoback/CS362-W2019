@@ -14,8 +14,9 @@ Village card gains the player one card, and two actions
 void assertTrue(int, int, int*);
 
 int main(){
+	int val = 0;
 	int *failFlag;
-	*failFlag = 0;
+	failFlag = &val;
 
 	int k[10] = {smithy, adventurer, council_room, village, minion, mine, cutpurse, sea_hag, tribute, ambassador};
   	struct gameState G;
@@ -26,26 +27,33 @@ int main(){
 
 	int prevHandCount = G.handCount[currentPlayer];
 	int prevActions = G.numActions;
-	int prevDiscards = G.discardCount[currentPlayer];
+	int prevPlayed = G.playedCardCount;
 
+	int i, vPos;
+	for (i = 0; i < G.handCount[currentPlayer]; i++){
+		if(G.hand[currentPlayer][i] == village){
+			vPos = i;
+			break;
+		}
+	}
 	// Test apparent successful run of card (return value of 0)
 	int res;
-  	res = playCard(crPosition, 0, 0 ,0, &G);
-  	assertTrue(res, __LINE__, failFlag);
+  	res = playCard(vPos, 0, 0 ,0, &G);
+  	assertTrue(res == 0, __LINE__, failFlag);
 
   	assertTrue(G.handCount[currentPlayer] == prevHandCount, __LINE__, failFlag);
-  	assertTrue(G.numActions + 1 == prevActions, __LINE__, failFlag); //Only increment 1 because one action was spent, two were gained
-  	assertTrue(G.discardCount[currentPlayer] == ++prevDiscards, __LINE__, failFlag);
-
-  	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 4 \n");
-    else printf("TEST FAILED: Card Test 4 \n");
+  	assertTrue(G.numActions == prevActions + 1, __LINE__, failFlag); //Only increment 1 because one action was spent, two were gained
+  	assertTrue(G.playedCardCount == ++prevPlayed, __LINE__, failFlag);
+  	
+	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 4 \n");
+	 else printf("TEST FAILED: Card Test 4 \n");
 
 	return 0;
 }
 
 
 void assertTrue(int value, int line, int* failFlag){
-	if(value != 0){
+	if(value == 0){
 		printf("Error on line %d\n", line);
 		*failFlag = 1;
 	}

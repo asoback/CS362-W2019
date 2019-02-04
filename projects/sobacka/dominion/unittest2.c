@@ -40,6 +40,7 @@ int main(){
   // Fail on out of bounds number of players
   assertTrue(initializeGame(-1, k, 2, &G) == -1, __LINE__, failFlag);
   assertTrue(initializeGame(0, k, 2, &G) == -1, __LINE__, failFlag);
+  assertTrue(initializeGame(1, k, 2, &G) == -1, __LINE__, failFlag);
   assertTrue(initializeGame(MAX_PLAYERS +1, k, 2, &G) == -1, __LINE__, failFlag);
   // Succeed on boundary case of max players
   assertTrue(initializeGame(MAX_PLAYERS, k, 2, &G) == 0, __LINE__, failFlag);

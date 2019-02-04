@@ -38,22 +38,22 @@ unittestresults: dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o cardtest2 cardtest2.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o cardtest3 cardtest3.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o cardtest4 cardtest4.c -lm dominion.o rngs.o
-	./unittest1 > unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./unittest2 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./unittest3 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./unittest4 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./cardtest1 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./cardtest2 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./cardtest3 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	./cardtest4 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
+	./unittest1 > unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./unittest2 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./unittest3 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./cardtest1 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./cardtest2 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./cardtest3 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	./cardtest4 >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)

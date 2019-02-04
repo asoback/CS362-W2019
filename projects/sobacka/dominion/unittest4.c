@@ -14,6 +14,7 @@ To test, make sure that who's turn is correct, compared to what is expected.
 
 #include "dominion.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void assertTrue(int, int, int*);
 
@@ -25,21 +26,18 @@ int main(){
     int numplayers = 2;
 
     int res = initializeGame(numplayers, k, 2, &G);
-    assertTrue(res, _LINE_, &failFlag);
+    assertTrue(res, __LINE__, failFlag);
 
     // initializeGame sets whoseTurn to 0
     // check to make sure this is true
-    assertTrue(whoseTurn(&G), _LINE_, &failFlag);
+    assertTrue(whoseTurn(&G), __LINE__, failFlag);
 
     // Set whoseTurn to 1, and check that the correct value was returned by the funciton
     G->whoseTurn = 1;
-    assertTrue(whoseTurn(&G) -1, _LINE_, &failFlag);
+    assertTrue(whoseTurn(&G) -1, __LINE__, failFlag);
 
-    // Free memory allocated to the test game
-    free(&G);
-
-	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED\n");
-    else printf("TEST FAILED\n");    
+	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Unit Test 4\n");
+    else printf("TEST FAILED: Unit Test 4\n");    
 
 	return 0;
 }

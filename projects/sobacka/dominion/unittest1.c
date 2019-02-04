@@ -45,8 +45,8 @@ int main(){
 	//Release dynamically allocated memory by kindomCards()
 	free(p);
 
-	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: kingdomCards() \n");
-    else printf("TEST FAILED: kingdomCards() \n");
+	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Unit Test 1 \n");
+    else printf("TEST FAILED: Unit Test 1 \n");
 
 	return 0;
 }

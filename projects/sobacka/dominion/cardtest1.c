@@ -16,6 +16,7 @@ Testing that the cards came from the deck and are now in the hand should be done
 
 #include "dominion.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void assertTrue(int, int, int*);
 
@@ -37,20 +38,20 @@ int main(){
   	currentPlayer = whoseTurn(&G);
 
   	// Get hand count
-  	handCount = G->handCount[currentPlayer];
+  	handCount = G.handCount[currentPlayer];
 
   	// Get what is in hand
   	int i;
   	for(i = 0; i < handCount; i++){
-  		hand[i] = G->hand[currentPlayer][i];
+  		hand[i] = G.hand[currentPlayer][i];
   	}
 
   	// Get deck count
-  	deckCount = G->deckCount[currentPlayer];
+  	deckCount = G.deckCount[currentPlayer];
 
   	// Get what is in deck
   	for(i=0; i < deckCount; i++){
-  		deck[i] = G->deck[currentPlayer][i];
+  		deck[i] = G.deck[currentPlayer][i];
   	}
 
 	// Add a Smithy to hand
@@ -58,48 +59,45 @@ int main(){
 
   	// Get smithy position
   	for(i = 0; i < handCount; i++){
-  		if( G->hand[currentPlayer][i] == smithy){
+  		if( G.hand[currentPlayer][i] == smithy){
   			smithyPosition = i;
   			break;
   		}
   	}
 
   	// Play smithy
-  	playCard(smithyPosition, 0, 0, 0, &failFlag);
+  	playCard(smithyPosition, 0, 0, 0, &G);
 
   	// Testing starts here...
 
   	// Check that the number of cards in hand is 3 more than previously
-  	assertTrue(G->handCount[currentPlayer] == handCount + 3, _LINE_, &failFlag);
+  	assertTrue(G.handCount[currentPlayer] == handCount + 3, __LINE__, failFlag);
 
   	// Check what is in hand, determine what is new
-  	int countdown = G->handCount[currentPlayer];
+  	int countdown = G.handCount[currentPlayer];
   	int j;
   	int gainedCard[3];
   	int k = 0; //Used to count up for gainedCard array
 
-  	for (i = 0; i < G->handCount[currentPlayer]){ 		// For every card in the hand now
+  	for (i = 0; i < G.handCount[currentPlayer]){ 		// For every card in the hand now
   		for(j = 0; j < handCount; j++){  				// For every card that was in the hand before
-  			if(hand[j] == G->hand[currentPlayer][i]){	
+  			if(hand[j] == G.hand[currentPlayer][i]){	
   				--countdown;
   				break;
   			}
   		}
   	}
-  	assertTrue(countdown==3, _LINE_, &failFlag)
+  	assertTrue(countdown==3, __LINE__, failFlag)
 
   	// Check deck contains 2 less than before
-  	assertTrue(G->deckCount[currentPlayer] == deckCount - 3, _LINE_, &failFlag);
+  	assertTrue(G.deckCount[currentPlayer] == deckCount - 3, __LINE__, failFlag);
   	
   	// Check that smithy has been played
-  	assertTrue(G->playedCards[0] == smithy, _LINE_, &failFlag);
+  	assertTrue(G.playedCards[0] == smithy, __LINE__, failFlag);
 
 
-	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: kingdomCards() \n");
-    else printf("TEST FAILED: kingdomCards() \n");
-
-    // Free memory allocated to the test game
-    free(&G);
+	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 1 \n");
+    else printf("TEST FAILED: Card Test 1 \n");
 
 	return 0;
 }

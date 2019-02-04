@@ -16,6 +16,7 @@ To test:
 
 #include "dominion.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void assertTrue(int, int, int*);
 
@@ -30,48 +31,45 @@ int main(){
     int numplayers = 2;
 
     int res = initializeGame(numplayers, k, 2, &G);
-    assertTrue(res, _LINE_, &failFlag);
+    assertTrue(res, __LINE__, failFlag);
 
     // 1st test: Check if given hand is correct
-    int currentPlayer = G->whoseTurn;
+    int currentPlayer = G.whoseTurn;
     int c, s, g; //copper, silver, and gold counts.
 
     updateCoins(currentPlayer, G, 0);
     int i;
-    for (i = 0; i < G->handCount[currentPlayer]; i++){
-    	if (G->hand[currentPlayer][i] == copper) {c++;}
-      	else if (G->hand[currentPlayer][i] == silver) {s++;}
-      	else if (G->hand[player][i] == gold) {g++;}
+    for (i = 0; i < G.handCount[currentPlayer]; i++){
+    	if (G.hand[currentPlayer][i] == copper) {c++;}
+      	else if (G.hand[currentPlayer][i] == silver) {s++;}
+      	else if (G.hand[player][i] == gold) {g++;}
     }
     //copper + silver + gold minus G->coins should equal 0 if correct
-    assertTrue( c + (s*2) + (g*3) - G->coins, _LINE_, &failFlag);
+    assertTrue( c + (s*2) + (g*3) - G.coins, __LINE__, failFlag);
 
     // 2nd test: Add cards, check that coins are correct
     for (i = 0; i < 5; i++){
-    	G->hand[currentPlayer][i] = gold; //5 golds equals 15 'coins'
+    	G.hand[currentPlayer][i] = gold; //5 golds equals 15 'coins'
     }
     updateCoins(currentPlayer, G, 0);
-    assertTrue(G->coins - 15, _LINE_, &failFlag);
+    assertTrue(G.coins - 15, __LINE__, failFlag);
 
     // 3rd Test: Change bonus value, and make sure that it is still correct
     updateCoins(currentPlayer, G, 3);
-    assertTrue(G->coins - 18, _LINE_, &failFlag);
+    assertTrue(G.coins - 18, __LINE__, failFlag);
 
     // 4th test: Switch players, draw 5 cards coppers, check to make sure coins are correct after updateCoins() called
     currentPlayer = 1;
     for (i = 0; i < 5; i++){
-    	G->hand[currentPlayer][i] = copper; //5 copper equals 5 'coins'
+    	G.hand[currentPlayer][i] = copper; //5 copper equals 5 'coins'
     }
     //Important: function relies on the gamestate storing the number of cards. If the number of cards in a hand is changed, this also needs to change
-    G->handCount[currentPlayer] = 5; 
+    G.handCount[currentPlayer] = 5; 
     updateCoins(currentPlayer, G, 0);
-    assertTrue(G->coins - 5, _LINE_, &failFlag);
+    assertTrue(G.coins - 5, __LINE__, failFlag);
 
-    // Free memory allocated to the test game
-    free(&G);
-
-    if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED\n");
-    else printf("TEST FAILED\n");
+    if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Unit Test 3\n");
+    else printf("TEST FAILED: Unit Test 3\n");
 
 	return 0;
 }

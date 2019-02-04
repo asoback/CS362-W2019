@@ -37,30 +37,30 @@ int main(){
   struct gameState G;
 
   // Fail on out of bounds number of players
-  assertTrue(initializeGame(-1, k, 2, &G) == -1, 19, failFlag);
-  assertTrue(initializeGame(0, k, 2, &G) == -1, 20, failFlag);
-  assertTrue(initializeGame(MAX_PLAYERS +1, k, 2, &G) == -1, 22, failFlag);
+  assertTrue(initializeGame(-1, k, 2, &G) == -1, __LINE__, failFlag);
+  assertTrue(initializeGame(0, k, 2, &G) == -1, __LINE__, failFlag);
+  assertTrue(initializeGame(MAX_PLAYERS +1, k, 2, &G) == -1, __LINE__, failFlag);
   // Succeed on boundary case of max players
-  assertTrue(initializeGame(MAX_PLAYERS, k, 2, &G) == 0, 21, failFlag);
+  assertTrue(initializeGame(MAX_PLAYERS, k, 2, &G) == 0, __LINE__, failFlag);
   memset(&G, 0, sizeof(struct gameState));   // clear the game state
 
   // fail on duplicate cards
   k[0] = gardens; // k[1] is also gardener
-  assertTrue(initializeGame(2, k, 2, &G) == -1, 27, failFlag);
+  assertTrue(initializeGame(2, k, 2, &G) == -1, __LINE__, failFlag);
   k[0] = adventurer;
 
   // Succeed with correct number of players and all different cards
   int numPlayers = 2;
- 	assertTrue(initializeGame(numPlayers, k, 2, &G) == 0, 27, failFlag);
+ 	assertTrue(initializeGame(numPlayers, k, 2, &G) == 0, __LINE__, failFlag);
 
     // Check supply counts are correct per game specifications
- 	assertTrue(G.supplyCount[curse] - 10, 34, failFlag);
- 	assertTrue(G.supplyCount[estate] - 8, 35, failFlag);
-	assertTrue(G.supplyCount[duchy] - 8, 36, failFlag);
-	assertTrue(G.supplyCount[province] - 8, 37, failFlag);
-	assertTrue(G.supplyCount[copper] - (60 - (7 * numPlayers)), 38, failFlag);
-	assertTrue(G.supplyCount[silver] - 40, 39, failFlag);
-	assertTrue(G.supplyCount[gold] - 30, 40, failFlag);
+ 	assertTrue(G.supplyCount[curse] - 10, __LINE__, failFlag);
+ 	assertTrue(G.supplyCount[estate] - 8, __LINE__, failFlag);
+	assertTrue(G.supplyCount[duchy] - 8, __LINE__, failFlag);
+	assertTrue(G.supplyCount[province] - 8, __LINE__, failFlag);
+	assertTrue(G.supplyCount[copper] - (60 - (7 * numPlayers)), __LINE__, failFlag);
+	assertTrue(G.supplyCount[silver] - 40, __LINE__, failFlag);
+	assertTrue(G.supplyCount[gold] - 30, __LINE__, failFlag);
 
 	// Same for kingdom cards
 	assertTrue(G.supplyCount[adventurer] - 10, __LINE__, failFlag);
@@ -100,12 +100,12 @@ int main(){
   				c++;
   			}
   			else{
-  				assertTrue(-1, 61, failFlag); //Fail on any other cards
+  				assertTrue(-1, __LINE__, failFlag); //Fail on any other cards
   			}
   		}
 			// Assert that there are 3 estates and 7 coppers in each deck
-  		assertTrue(e - 3, 66, failFlag);
-  		assertTrue(c - 7, 67, failFlag);
+  		assertTrue(e - 3, __LINE__, failFlag);
+  		assertTrue(c - 7, __LINE__, failFlag);
 	 	}
   }
 
@@ -126,8 +126,8 @@ int main(){
       assertTrue(G.embargoTokens[i] == 0, __LINE__, failFlag);
     }
 
-  	if(*failFlag == 0) { printf("TEST SUCCESSFULLY COMPLETED\n"); }
-  	else { printf("TEST FAILED\n"); }
+  	if(*failFlag == 0) { printf("TEST SUCCESSFULLY COMPLETED: Unit Test 2\n"); }
+  	else { printf("TEST FAILED: Unit Test 2\n"); }
 
   	return 0;
 }

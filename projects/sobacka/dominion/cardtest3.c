@@ -15,6 +15,7 @@ Test:
 
 #include "dominion.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void assertTrue(int, int, int*);
 
@@ -27,8 +28,8 @@ int main(){
   	initializeGame(2, k, 1, &G); //Two player game, with the above array of cards, random seed, and the gamestate struct
   	int currentPlayer = whoseTurn(&G);
 
-	int prevHandCount = G->handCount[currentPlayer];
-	int prevBuys = G->numBuys;
+	int prevHandCount = G.handCount[currentPlayer];
+	int prevBuys = G.numBuys;
 
 	// Add a Smithy to hand
   	gainCard(council_room, &G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
@@ -36,7 +37,7 @@ int main(){
   	// Get council room position
   	int crPosition;
   	for(i = 0; i < handCount; i++){
-  		if( G->hand[currentPlayer][i] == council_room){
+  		if( G.hand[currentPlayer][i] == council_room){
   			crPosition = i;
   			break;
   		}
@@ -45,31 +46,28 @@ int main(){
   	// Test successful play of council room
   	int res;
   	res = playCard(crPosition, 0, 0 ,0, &G);
-  	assertTrue(res, _LINE_, &failFlag);
+  	assertTrue(res, __LINE__, failFlag);
 
   	// Test that 4 new cards have arrived (Testing for validity of the cards coming to the hand from the deck can be tested in drawCard())
-  	assertTrue(G->handCount[currentPlayer] - prevHandCount == 4, _LINE_, &failFlag);
+  	assertTrue(G.handCount[currentPlayer] - prevHandCount == 4, __LINE__, failFlag);
 
   	// check that one card has been discarded, and that it is the correct card
-  	assertTrue(G->discardCount[currentPlayer] == 1, _LINE_, &failFlag);
-  	assertTrue(G->discard[currentPlayer][0] == council_room, _LINE_, &failFlag);
+  	assertTrue(G.discardCount[currentPlayer] == 1, __LINE__, failFlag);
+  	assertTrue(G.discard[currentPlayer][0] == council_room, __LINE__, failFlag);
 
   	// Check that there is one more buy after playing the card
-  	assertTrue(G->numBuys +1 == prevBuys, _LINE_, &failFlag);
+  	assertTrue(G.numBuys +1 == prevBuys, __LINE__, failFlag);
 
   	// Check that each other player has also drawn one card
   	//Each other player draws a card
-  	for (i = 0; i < G->numPlayers; i++){
+  	for (i = 0; i < G.numPlayers; i++){
     	if ( i != currentPlayer ){
-        	assertTrue(G->handCount[i] == ++prevBuys, _LINE_, &failFlag);
+        	assertTrue(G.handCount[i] == ++prevBuys, __LINE__, failFlag);
       	}
   	}
 
-  	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: kingdomCards() \n");
-    else printf("TEST FAILED: kingdomCards() \n");
-
-    // Free memory allocated to the test game
-    free(&G);
+  	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 3 \n");
+    else printf("TEST FAILED: Card Test 3 \n");
 
 	return 0;
 }

@@ -14,6 +14,7 @@ Test:
 
 #include "dominion.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void assertTrue(int, int, int*);
 
@@ -29,36 +30,33 @@ int main(){
   	// Set deck to be what I want
   	int i;
   	for (i = 0; i < MAX_DECK; i++){
-  		G->deck[currentPlayer][i] = -1;
+  		G.deck[currentPlayer][i] = -1;
   	}
-  	G->deck[currentPlayer][0] = estate;
-  	G->deck[currentPlayer][1] = copper;
-  	G->deck[currentPlayer][2] = estate;
-  	G->deck[currentPlayer][3] = copper;
-  	G->deck[currentPlayer][4] = copper;
+  	G.deck[currentPlayer][0] = estate;
+  	G.deck[currentPlayer][1] = copper;
+  	G.deck[currentPlayer][2] = estate;
+  	G.deck[currentPlayer][3] = copper;
+  	G.deck[currentPlayer][4] = copper;
   	
   	// Set hand to be what I want
   	for (i = 0; i < MAX_HAND; i++){
-  		G->hand[currentPlayer][i] = -1;
+  		G.hand[currentPlayer][i] = -1;
   	}
-  	G->hand[currentPlayer][0] = adventurer;
+  	G.hand[currentPlayer][0] = adventurer;
 
   	// Play Adventurer
-  	playCard(0, 0, 0, 0, &failFlag); //First parameter is the position of the adventurer in the hand (0)
+  	playCard(0, 0, 0, 0, failFlag); //First parameter is the position of the adventurer in the hand (0)
 
   	// Check discard pile
-  	assertTrue(G->discardCount[currentPlayer] == 2, _LINE_, &failFlag);
+  	assertTrue(G.discardCount[currentPlayer] == 2, __LINE__, failFlag);
 
   	// There should only be two cards in the hand, both coppers
-  	assertTrue(G->handCount[currentPlayer] == 2, _LINE_, &failFlag);
-  	assertTrue(G->hand[currentPlayer][0] == copper, _LINE_, &failFlag);
-  	assertTrue(G->hand[currentPlayer][0] == copper, _LINE_, &failFlag);
+  	assertTrue(G.handCount[currentPlayer] == 2, __LINE__, failFlag);
+  	assertTrue(G.hand[currentPlayer][0] == copper, __LINE__, failFlag);
+  	assertTrue(G.hand[currentPlayer][0] == copper, __LINE__, failFlag);
 
-  	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: kingdomCards() \n");
-    else printf("TEST FAILED: kingdomCards() \n");
-
-    // Free memory allocated to the test game
-    free(&G);
+  	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 2 \n");
+    else printf("TEST FAILED: Card Test 2 \n");
 
 	return 0;
 }

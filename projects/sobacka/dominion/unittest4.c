@@ -19,8 +19,9 @@ To test, make sure that who's turn is correct, compared to what is expected.
 void assertTrue(int, int, int*);
 
 int main(){
+	int val = 0;
 	int *failFlag;
-	*failFlag = 0;
+	failFlag = &val;
 
 	//Set up game to use for testing
 	struct gameState G;
@@ -29,15 +30,15 @@ int main(){
     int numplayers = 2;
 
     int res = initializeGame(numplayers, k, 2, &G);
-    assertTrue(res, __LINE__, failFlag);
+    assertTrue(res == 0, __LINE__, failFlag);
 
     // initializeGame sets whoseTurn to 0
     // check to make sure this is true
-    assertTrue(whoseTurn(&G), __LINE__, failFlag);
+    assertTrue(whoseTurn(&G) == 0, __LINE__, failFlag);
 
     // Set whoseTurn to 1, and check that the correct value was returned by the funciton
     G.whoseTurn = 1;
-    assertTrue(whoseTurn(&G) -1, __LINE__, failFlag);
+    assertTrue(whoseTurn(&G) == 1, __LINE__, failFlag);
 
 	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Unit Test 4\n");
     else printf("TEST FAILED: Unit Test 4\n");    
@@ -46,7 +47,7 @@ int main(){
 }
 
 void assertTrue(int value, int line, int* failFlag){
-	if(value != 0){
+	if(value == 0){
 		printf("Error near line %d\n", line);
 		*failFlag = 1;
 	}

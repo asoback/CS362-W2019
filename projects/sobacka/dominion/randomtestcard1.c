@@ -91,7 +91,7 @@ int main(){
 	  		assertTrue(0, __LINE__, failFlag);
 	  	}
 
-		//printf("%d After Deck Test\n", x);
+		 
 	  	// Two actions are added, but 1 is used by playing the card, so the number of actions should only increment 1
 	  	assertTrue(G->numActions = testActions + 1, __LINE__, failFlag);
 
@@ -108,7 +108,7 @@ int main(){
 
 	  	// Current player should not change
 	  	assertTrue(whoseTurn(G) == currentPlayer, __LINE__, failFlag);
-		//printf("%d End loop\n", x);
+ 
 		free(G);
 	}
 

@@ -32,11 +32,11 @@ int main(){
     int players = (rand() % 7) +  2; // 2 to 8 players 
 
     int k[10] = {smithy, adventurer, council_room, village, minion, mine, cutpurse, sea_hag, tribute, ambassador};
-    struct gameState G;
-    initializeGame(players, k, seed, &G); // Game initialized with a random number of playes, as well as a random seed
+    struct gameState* G = newGame();
+    initializeGame(players, k, seed, G); // Game initialized with a random number of playes, as well as a random seed
 
-    int currentPlayer = whoseTurn(&G);
-    gainCard(adventurer, &G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
+    int currentPlayer = whoseTurn(G);
+    //gainCard(adventurer, G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
 
     // Remove all cards from deck, by setting deck count to 0
     G->deckCount[currentPlayer] = 0;
@@ -53,7 +53,7 @@ int main(){
       G->deckCount[currentPlayer]++;
     }
 
-    shuffle(currentPlayer, &G);
+    shuffle(currentPlayer, G);
 
     // Set random number of buys (0-10)
     G->numBuys = rand() % 11;
@@ -68,13 +68,10 @@ int main(){
     int testPlayed = G->playedCardCount;
     int testCoins = G->coins;
 
-    int aPosition; // aPosition used to mark the adventurer card position
-    for (i = 0; i < G->handCount[currentPlayer]; i++){
-      if(G->hand[currentPlayer][i] == adventurer){
-        aPosition = i;
-        break;
-      }
-    }
+    int aPos = testHandCount - 1; // vPos used to mark the adventurer card position
+    
+    G->hand[currentPlayer][aPos] = adventurer;
+
 
     // Test apparent successful run of card (return value of 0)
     int res;
@@ -126,7 +123,8 @@ int main(){
     assertTrue(G->playedCardCount == testPlayed + 1, __LINE__, failFlag);
 
     // Current player should not change
-    assertTrue(whoseTurn(&G) == currentPlayer, __LINE__, failFlag);
+    assertTrue(whoseTurn(G) == currentPlayer, __LINE__, failFlag);
+    free(G);
   }
 
 

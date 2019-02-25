@@ -1,0 +1,47 @@
+TEST SUCCESSFULLY COMPLETED: Unit Test 1 
+File 'dominion.c'
+Lines executed:2.30% of 564
+Creating 'dominion.c.gcov'
+
+TEST SUCCESSFULLY COMPLETED: Unit Test 2
+File 'dominion.c'
+Lines executed:19.50% of 564
+Creating 'dominion.c.gcov'
+
+TEST SUCCESSFULLY COMPLETED: Unit Test 3
+File 'dominion.c'
+Lines executed:19.68% of 564
+Creating 'dominion.c.gcov'
+
+TEST SUCCESSFULLY COMPLETED: Unit Test 4
+File 'dominion.c'
+Lines executed:20.04% of 564
+Creating 'dominion.c.gcov'
+
+Error on line 63
+Error on line 66
+TEST FAILED: Card Test 1 
+File 'dominion.c'
+Lines executed:28.37% of 564
+Creating 'dominion.c.gcov'
+
+Error on line 57
+Error on line 60
+Error on line 61
+TEST FAILED: Card Test 2 
+File 'dominion.c'
+Lines executed:30.67% of 564
+Creating 'dominion.c.gcov'
+
+Error on line 63
+num buys 0 old buys 1 
+TEST FAILED: Card Test 3 
+File 'dominion.c'
+Lines executed:32.62% of 564
+Creating 'dominion.c.gcov'
+
+TEST SUCCESSFULLY COMPLETED: Card Test 4 
+File 'dominion.c'
+Lines executed:33.33% of 564
+Creating 'dominion.c.gcov'
+

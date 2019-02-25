@@ -55,23 +55,6 @@ unittestresults: dominion.o rngs.o
 	./cardtest4 >> unittestresults.out
 	gcov dominion.c >> unittestresults.out
 
-randomtest: dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o randomtestcard1 randomtestcard1.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o randomtestcard2 randomtestcard2.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o randomtestadventurer randomtestadventurer.c -lm dominion.o rngs.o
-	./randomtestcard1 > randomtest.out
-	gcov dominion.c >> randomtest.out
-	cat dominion.c.gcov >> randomtest.out
-	./randomtestcard2 >> randomtest.out
-	gcov dominion.c >> randomtest.out
-	cat dominion.c.gcov >> randomtest.out
-	./randomtestadventurer >> randomtest.out
-	gcov dominion.c >> randomtest.out
-	cat dominion.c.gcov >> randomtest.out
-	echo tests complete >> randomtest.out
-
-
-
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 

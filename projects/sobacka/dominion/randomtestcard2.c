@@ -22,10 +22,11 @@ int main(){
 
   srand(time(NULL));
   //This test is just to make sure that my assert true works
-  assertTrue(true, __LINE__, failFlag);
+  assertTrue(1, __LINE__, failFlag);
 
   // Run 10,000 random tests.
-  for (int _ = 0; _ < 10000; _++){
+  int x;
+  for (x = 0; x < 10000; x++){
     int i;
     int seed = (rand() % 10) + 1;
     int players = (rand() % 7) +  2; // 2 to 8 players 
@@ -95,20 +96,20 @@ int main(){
     }
     // This line should never be called
     else{
-      assertTrue(false, __LINE__, failFlag);
+      assertTrue(0, __LINE__, failFlag);
     }
 
     // Actions should be one less than previously
     assertTrue(G.numActions = testActions - 1, __LINE__, failFlag);
 
     // Buys should not be affected by this card
-    assertTrue(G.numBuys] == testBuys + 2, __LINE__, failFlag);
+    assertTrue(G.numBuys == testBuys + 2, __LINE__, failFlag);
 
     // The number of cards played should have increased by 1
     assertTrue(G.playedCardCount == testPlayed + 1, __LINE__, failFlag);
 
     // Current player should not change
-    assertTrue(whoseTurn(&G) == currentPlayer);
+    assertTrue(whoseTurn(&G) == currentPlayer, __LINE__, failFlag);
   }
 
 	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 1 \n");

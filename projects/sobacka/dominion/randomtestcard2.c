@@ -39,29 +39,29 @@ int main(){
     gainCard(smithy, &G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
 
     // Remove all cards from deck, by setting deck count to 0
-    G.deckCount[currentPlayer] = 0;
+    G->deckCount[currentPlayer] = 0;
     // Add random number of coppers to deck, inc deck count each time.
     int coppers = rand() % 11; //0 - 10 coppers to add to deck
     for(i = 0; i < coppers; i++){
-      G.deck[currentPlayer][i] = copper;
-      G.deckCount[currentPlayer]++;
+      G->deck[currentPlayer][i] = copper;
+      G->deckCount[currentPlayer]++;
     }
 
     // Set random number of buys (0-10)
-    G.numBuys = rand() % 11;
+    G->numBuys = rand() % 11;
     // Set random number of actions (1-10). This must be at least 1 or else the card cannoted be played
-    G.numActions = (rand() % 10) + 1;
+    G->numActions = (rand() % 10) + 1;
 
     // Get values to be compared later
-    int testDeckCount = G.deckCount[currentPlayer];
-    int testHandCount = G.handCount[currentPlayer];
-    int testActions = G.numActions;
-    int testBuys = G.numBuys;
-    int testPlayed = G.playedCardCount;
+    int testDeckCount = G->deckCount[currentPlayer];
+    int testHandCount = G->handCount[currentPlayer];
+    int testActions = G->numActions;
+    int testBuys = G->numBuys;
+    int testPlayed = G->playedCardCount;
 
     int smithyPosition; // smithyPosition used to mark the smithy card position
-    for (i = 0; i < G.handCount[currentPlayer]; i++){
-      if(G.hand[currentPlayer][i] == village){
+    for (i = 0; i < G->handCount[currentPlayer]; i++){
+      if(G->hand[currentPlayer][i] == village){
         smithyPosition = i;
         break;
       }
@@ -75,24 +75,24 @@ int main(){
     // So long as there are enough cards in the deck, one card is removed from the hand, and three are added
     // Three are also removed from the deck
     if(testDeckCount >= 3){
-      assertTrue(G.deckCount[currentPlayer] == testDeckCount - 3, __LINE__, failFlag);
-      assertTrue(G.handCount[currentPlayer] == testHandCount + 2, __LINE__, failFlag);
+      assertTrue(G->deckCount[currentPlayer] == testDeckCount - 3, __LINE__, failFlag);
+      assertTrue(G->handCount[currentPlayer] == testHandCount + 2, __LINE__, failFlag);
     }
     // With only two cards in the deck, two are added to the hand and one is played, and the deck should now have no cards
     else if(testDeckCount == 2){
-      assertTrue(G.deckCount[currentPlayer] == 0, __LINE__, failFlag);
-      assertTrue(G.handCount[currentPlayer] == testHandCount + 1, __LINE__, failFlag);
+      assertTrue(G->deckCount[currentPlayer] == 0, __LINE__, failFlag);
+      assertTrue(G->handCount[currentPlayer] == testHandCount + 1, __LINE__, failFlag);
     }
     // If there is only one card in the deck, one card is played, one is added to the hand, and the deck should now be 0
     else if(testDeckCount == 1){
-      assertTrue(G.deckCount[currentPlayer] == 0, __LINE__, failFlag);
-      assertTrue(G.handCount[currentPlayer] == testHandCount, __LINE__, failFlag);
+      assertTrue(G->deckCount[currentPlayer] == 0, __LINE__, failFlag);
+      assertTrue(G->handCount[currentPlayer] == testHandCount, __LINE__, failFlag);
     }
     // In this case, the handcount should decrease, as one card has been played
     // However, the deck count should remain the same, as nothing was in it to draw from
     else if(testDeckCount == 0){
-      assertTrue(G.deckCount[currentPlayer] == 0, __LINE__, failFlag);
-      assertTrue(G.handCount[currentPlayer] == testHandCount - 1, __LINE__, failFlag);
+      assertTrue(G->deckCount[currentPlayer] == 0, __LINE__, failFlag);
+      assertTrue(G->handCount[currentPlayer] == testHandCount - 1, __LINE__, failFlag);
     }
     // This line should never be called
     else{
@@ -100,13 +100,13 @@ int main(){
     }
 
     // Actions should be one less than previously
-    assertTrue(G.numActions = testActions - 1, __LINE__, failFlag);
+    assertTrue(G->numActions = testActions - 1, __LINE__, failFlag);
 
     // Buys should not be affected by this card
-    assertTrue(G.numBuys == testBuys + 2, __LINE__, failFlag);
+    assertTrue(G->numBuys == testBuys + 2, __LINE__, failFlag);
 
     // The number of cards played should have increased by 1
-    assertTrue(G.playedCardCount == testPlayed + 1, __LINE__, failFlag);
+    assertTrue(G->playedCardCount == testPlayed + 1, __LINE__, failFlag);
 
     // Current player should not change
     assertTrue(whoseTurn(&G) == currentPlayer, __LINE__, failFlag);

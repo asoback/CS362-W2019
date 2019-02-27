@@ -59,17 +59,15 @@ randomtest: dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o randomtestcard1 randomtestcard1.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o randomtestcard2 randomtestcard2.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o randomtestadventurer randomtestadventurer.c -lm dominion.o rngs.o
-	./randomtestcard1 > randomtest.out
-	gcov dominion.c >> randomtest.out
-	cat dominion.c.gcov >> randomtest.out
-	./randomtestcard2 >> randomtest.out
-	gcov dominion.c >> randomtest.out
-	cat dominion.c.gcov >> randomtest.out
-	./randomtestadventurer >> randomtest.out
-	gcov dominion.c >> randomtest.out
-	cat dominion.c.gcov >> randomtest.out
-	echo tests complete >> randomtest.out
-
+	./randomtestcard1 > randomtestcard1.out
+	gcov dominion.c >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+	./randomtestcard2 > randomtestcard2.out
+	gcov dominion.c >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+	./randomtestadventurer > randomtestadventurer.out
+	gcov dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
 
 
 player: player.c interface.o

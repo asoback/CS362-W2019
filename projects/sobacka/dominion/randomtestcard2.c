@@ -65,7 +65,7 @@ int main(){
 
     // Test apparent successful run of card (return value of 0)
     int res;
-    res = playCard(smithyPosition, 0, 0 ,0, &G);
+    res = playCard(smithyPosition, 0, 0 ,0, G);
     assertTrue(res == 0, __LINE__, failFlag);
 
     // So long as there are enough cards in the deck, one card is removed from the hand, and three are added

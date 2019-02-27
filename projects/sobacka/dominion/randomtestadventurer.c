@@ -18,68 +18,78 @@ int main(){
 	int val = 0;
 	int *failFlag;
 	failFlag = &val;
+	struct gameState* G;
 
-
-  srand(time(NULL));
-  //This test is just to make sure that my assert true works
-  assertTrue(1, __LINE__, failFlag);
-
+    	int k[10] = {smithy, adventurer, council_room, village, minion, mine, cutpurse, sea_hag, tribute, ambassador};
+  	srand(time(NULL));
+ 	 //This test is just to make sure that my assert true works
+	  assertTrue(1, __LINE__, failFlag);
+	int i, seed, players, x, coinType;
   // Run 10,000 random tests.
-  int x;
   for (x = 0; x < 10000; x++){
-    int i;
-    int seed = (rand() % 10) + 1;
-    int players = (rand() % 7) +  2; // 2 to 8 players 
-
-    int k[10] = {smithy, adventurer, council_room, village, minion, mine, cutpurse, sea_hag, tribute, ambassador};
-    struct gameState* G = newGame();
+    seed = (rand() % 10) + 1;
+    players = (rand() % 7) +  2; // 2 to 8 players 
+	coinType = rand() % 3; // 0 for copper, 1 for silver, and 2 for gold
+    G = newGame();
     initializeGame(players, k, seed, G); // Game initialized with a random number of playes, as well as a random seed
-
-    int currentPlayer = whoseTurn(G);
+    printf("test 1\n");
+int currentPlayer = whoseTurn(G);
     //gainCard(adventurer, G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
 
     // Remove all cards from deck, by setting deck count to 0
     G->deckCount[currentPlayer] = 0;
     // Add random number of coppers to deck, inc deck count each time.
-    int coppers = rand() % 11; //0 - 10 coppers to add to deck
-    for(i = 0; i < coppers; i++){
-      G->deck[currentPlayer][i] = copper;
+    int coinAdd = rand() % 11; //0 - 10 coins of a type to add to deck
+    for(i = 0; i < coinAdd; i++){
+	if(coinType == 0){G->deck[currentPlayer][i] = copper;}	
+	else if(coinType == 1){G->deck[currentPlayer][i] = silver;}
+	else {G->deck[currentPlayer][i] = copper;}
       G->deckCount[currentPlayer]++;
     }
+
+
+    printf("test 2\n");
     // Add random number (0-10) of estates as well, then shuffle
     int estates = rand() % 11;
-     for(i = 0; i < estates; i++){
+     for(i = coinAdd; i < (estates + coinAdd); i++){
       G->deck[currentPlayer][i] = estate;
       G->deckCount[currentPlayer]++;
     }
+    
 
-    shuffle(currentPlayer, G);
-
+    printf("test 3");
+	shuffle(currentPlayer, G);
     // Set random number of buys (0-10)
     G->numBuys = rand() % 11;
     // Set random number of actions (1-10). This must be at least 1 or else the card cannoted be played
     G->numActions = (rand() % 10) + 1;
-
+	//setting my own hand, to make sure that all variables are intentional
+	for( i = 0; i < 4; i++){
+		G->hand[currentPlayer][i] == copper;
+	}
+    	G->hand[currentPlayer][4] = adventurer;
+	G->handCount[currentPlayer] = 5;
+    int aPos = 4; // aPos used to mark the adventurer card position
+    
+printf("test 4\n");
     // Get values to be compared later
     int testDeckCount = G->deckCount[currentPlayer];
     int testHandCount = G->handCount[currentPlayer];
     int testActions = G->numActions;
     int testBuys = G->numBuys;
     int testPlayed = G->playedCardCount;
+printf("tets 4.3\n");
+	updateCoins(currentPlayer, G, 0);
     int testCoins = G->coins;
-
-    int aPos = testHandCount - 1; // vPos used to mark the adventurer card position
-    
-    G->hand[currentPlayer][aPos] = adventurer;
-
-
+printf("test 4.5 apos %d handcount %d hand[aPos] = %d=%d player %d deck %d\n", aPos, G->handCount[currentPlayer], G->hand[currentPlayer][aPos], adventurer, currentPlayer, testDeckCount);
     // Test apparent successful run of card (return value of 0)
     int res;
-    res = playCard(aPosition, 0, 0 ,0, &G);
+
+    res = playCard(aPos, 0, 0 ,0, G);
     assertTrue(res == 0, __LINE__, failFlag);
 
 
-
+printf("test 5\n");
     if(testDeckCount >= 2){
       assertTrue(G->deckCount[currentPlayer] <= testDeckCount - 2, __LINE__, failFlag); // At least two cards drawn from deck
       assertTrue(G->handCount[currentPlayer] >= testHandCount + 1, __LINE__, failFlag); // One card played and at least two drawn
@@ -97,31 +107,32 @@ int main(){
       assertTrue(0, __LINE__, failFlag);
     }
 
-    // Test that if there were two+ coppers in deck before, that the hand now contains exactly two more coppers
-    if (coppers >= 2){
-      assertTrue(G->coins == testCoins + 2, __LINE__, failFlag);
+    // Test that if there were two+ coins in deck before, that the hand now contains exactly two more coppers
+    if (coinAdd >= 2){
+      assertTrue(G->coins == testCoins + (coinType+1)*2, __LINE__, failFlag);
     }
-    // Only one copper
-    else if(coppers == 1){
-      assertTrue(G->coins == testCoins + 1, __LINE__, failFlag);
+    // Only one coins
+    else if(coinAdd == 1){
+      assertTrue(G->coins == testCoins + (coinType+1)*2, __LINE__, failFlag);
     }
-    // No coppers
-    else if (coppers == 0){
+    // No coins
+    else if (coinAdd == 0){
       assertTrue(G->coins == testCoins, __LINE__, failFlag);
     }
     else {
       assertTrue(0, __LINE__, failFlag);
     }
 
+    updateCoins(currentPlayer, G, 0);
     // Actions should be one less than previously
     assertTrue(G->numActions = testActions - 1, __LINE__, failFlag);
 
     // Buys should not be affected by this card
-    assertTrue(G->numBuys == testBuys + 2, __LINE__, failFlag);
+    assertTrue(G->numBuys == testBuys, __LINE__, failFlag);
 
     // The number of cards played should have increased by 1
     assertTrue(G->playedCardCount == testPlayed + 1, __LINE__, failFlag);
-
+    
     // Current player should not change
     assertTrue(whoseTurn(G) == currentPlayer, __LINE__, failFlag);
     free(G);

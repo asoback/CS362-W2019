@@ -14,6 +14,24 @@ Last changed: 2/25/19
 #include <time.h>
 
 void assertTrue(int, int, int*);
+int errorLine[150]; //Global is used to count the number of times an error occurs
+
+//Set the count of all lines to 0, no errors have occured yet
+void clearLines(){
+  int i;
+  for (i = 0; i < 150; i++){
+    errorLine[i] = 0;
+  }
+}
+
+void printErrors(){
+  int i;
+  for (i = 0; i < 150; i++){
+    if (errorLine[i] > 0){
+      printf("Error on line %d\n occured %d times", line, errorLine[i]);
+    }
+  }
+}
 
 int main(){
 	int val = 0;
@@ -99,7 +117,7 @@ int main(){
     assertTrue(G->numActions = testActions - 1, __LINE__, failFlag);
 
     // Buys should not be affected by this card
-    assertTrue(G->numBuys == testBuys + 2, __LINE__, failFlag);
+    assertTrue(G->numBuys == testBuys, __LINE__, failFlag);
 
     // The number of cards played should have increased by 1
     assertTrue(G->playedCardCount == testPlayed + 1, __LINE__, failFlag);
@@ -118,7 +136,7 @@ int main(){
 
 void assertTrue(int value, int line, int* failFlag){
 	if(value == 0){
-		printf("Error on line %d\n", line);
+		errorLine[line]++;
 		*failFlag = 1;
 	}
 }

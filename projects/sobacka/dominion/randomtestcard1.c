@@ -14,6 +14,24 @@ Last changed: 2/25/19
 #include <time.h>
 
 void assertTrue(int, int, int*);
+int errorLine[150]; //Global is used to count the number of times an error occurs
+
+//Set the count of all lines to 0, no errors have occured yet
+void clearLines(){
+  int i;
+  for (i = 0; i < 150; i++){
+    errorLine[i] = 0;
+  }
+}
+
+void printErrors(){
+  int i;
+  for (i = 0; i < 150; i++){
+    if (errorLine[i] > 0){
+      printf("Error on line %d\n occured %d times", line, errorLine[i]);
+    }
+  }
+}
 
 int main(){
 	int val = 0;
@@ -34,9 +52,7 @@ int main(){
   		struct gameState* G = newGame();
   		initializeGame(players, k, seed, G); //Game initialized with a random number of playes, as well as a random seed
 
-		//printf("%d Game initialized\n", x);
   		int currentPlayer = whoseTurn(G);
-  	//	int g = gainCard(village, G, 2, currentPlayer);  // 3rd parameter is toFlag, 2 equals hand
   		
 		//remove all cards from deck, by setting deck count to 0
   		G->deckCount[currentPlayer] = 0;
@@ -91,24 +107,18 @@ int main(){
 	  		assertTrue(0, __LINE__, failFlag);
 	  	}
 
-		 
 	  	// Two actions are added, but 1 is used by playing the card, so the number of actions should only increment 1
 	  	assertTrue(G->numActions = testActions + 1, __LINE__, failFlag);
 
 	  	// The number of buys should stay the same
-	  	if(whoseTurn(G) == currentPlayer){
-		  	assertTrue(G->numBuys == testBuys, __LINE__, failFlag);
-			if( G->numBuys != testBuys){
-				printf("new %d old %d player %d\n", G->numBuys, testBuys, currentPlayer);
-			}
-		}
+		assertTrue(G->numBuys == testBuys, __LINE__, failFlag);
 
 	  	// The number of cards played should have increased by 1
 	  	assertTrue(G->playedCardCount == testPlayed + 1, __LINE__, failFlag);
 
 	  	// Current player should not change
 	  	assertTrue(whoseTurn(G) == currentPlayer, __LINE__, failFlag);
- 
+
 		free(G);
 	}
 
@@ -119,10 +129,9 @@ int main(){
 	return 0;
 }
 
-
 void assertTrue(int value, int line, int* failFlag){
 	if(value == 0){
-		printf("Error on line %d\n", line);
+		errorLine[line]++;
 		*failFlag = 1;
 	}
 }

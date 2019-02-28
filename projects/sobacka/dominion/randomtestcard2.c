@@ -28,7 +28,7 @@ void printErrors(){
   int i;
   for (i = 0; i < 150; i++){
     if (errorLine[i] > 0){
-      printf("Error on line %d\n occured %d times", line, errorLine[i]);
+      printf("Error on line %d\n occured %d times", i, errorLine[i]);
     }
   }
 }

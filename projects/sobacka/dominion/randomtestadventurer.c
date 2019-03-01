@@ -13,19 +13,19 @@ Last changed: 2/25/19
 #include <time.h>
 
 void assertTrue(int, int, int*);
-int errorLine[150]; //Global is used to count the number of times an error occurs
+int errorLine[200]; //Global is used to count the number of times an error occurs
 
 //Set the count of all lines to 0, no errors have occured yet
 void clearLines(){
   int i;
-  for (i = 0; i < 150; i++){
+  for (i = 0; i < 200; i++){
     errorLine[i] = 0;
   }
 }
 
 void printErrors(){
   int i;
-  for (i = 0; i < 150; i++){
+  for (i = 0; i < 200; i++){
     if (errorLine[i] > 0){
       printf("Error on line %d occured %d times\n", i, errorLine[i]);
     }

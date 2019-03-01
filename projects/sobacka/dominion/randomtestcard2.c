@@ -28,7 +28,7 @@ void printErrors(){
   int i;
   for (i = 0; i < 150; i++){
     if (errorLine[i] > 0){
-      printf("Error on line %d\n occured %d times", i, errorLine[i]);
+      printf("Error on line %d occured %d times\n", i, errorLine[i]);
     }
   }
 }
@@ -126,9 +126,9 @@ int main(){
     assertTrue(whoseTurn(G) == currentPlayer, __LINE__, failFlag);
     free(G);
   }
-
-	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 1 \n");
-  else printf("TEST FAILED: Card Test 1 \n");
+	printErrors();
+	if (*failFlag == 0) printf("TEST SUCCESSFULLY COMPLETED: Card Test 2 \n");
+  else printf("TEST FAILED: Card Test 2 \n");
 
 	return 0;
 }

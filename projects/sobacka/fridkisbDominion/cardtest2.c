@@ -58,7 +58,6 @@ int main(){
 
   	// There should only be two cards in the hand, both coppers
   	assertTrue(G.handCount[currentPlayer] == 2, __LINE__, failFlag);
-    printf("current handcount: %d, hand[0] %d hand[1] %d \n", G.handCount[currentPlayer], G.hand[currentPlayer][0], G.hand[currentPlayer][1] );
   	assertTrue(G.hand[currentPlayer][0] == copper, __LINE__, failFlag);
   	assertTrue(G.hand[currentPlayer][1] == copper, __LINE__, failFlag);
 

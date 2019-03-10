@@ -33,14 +33,14 @@ runtests: testDrawCard
 	cat dominion.c.gcov >> unittestresult.out
 
 unittestresults: dominion.o rngs.o cardEffects.o
-	gcc -ftest-coverage -fprofile-arcs -o unittest1 unittest1.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o unittest2 unittest2.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o unittest3 unittest3.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o unittest4 unittest4.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o cardtest1 cardtest1.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o cardtest2 cardtest2.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o cardtest3 cardtest3.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o cardtest4 cardtest4.c -lm dominion.o rngs.o
+	gcc -ftest-coverage -fprofile-arcs -o unittest1 unittest1.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o unittest2 unittest2.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o unittest3 unittest3.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o unittest4 unittest4.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o cardtest1 cardtest1.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o cardtest2 cardtest2.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o cardtest3 cardtest3.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o cardtest4 cardtest4.c -lm dominion.o rngs.o cardEffects.o
 	./unittest1 > unittestresults.out
 	./unittest2 >> unittestresults.out
 	./unittest3 >> unittestresults.out
@@ -53,9 +53,9 @@ unittestresults: dominion.o rngs.o cardEffects.o
 	gcov dominion.c >> unittestresults.out
 
 randomtest: dominion.o rngs.o cardEffects.o
-	gcc -ftest-coverage -fprofile-arcs -o randomtestcard1 randomtestcard1.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o randomtestcard2 randomtestcard2.c -lm dominion.o rngs.o
-	gcc -ftest-coverage -fprofile-arcs -o randomtestadventurer randomtestadventurer.c -lm dominion.o rngs.o
+	gcc -ftest-coverage -fprofile-arcs -o randomtestcard1 randomtestcard1.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o randomtestcard2 randomtestcard2.c -lm dominion.o rngs.o cardEffects.o
+	gcc -ftest-coverage -fprofile-arcs -o randomtestadventurer randomtestadventurer.c -lm dominion.o rngs.o cardEffects.o
 	./randomtestcard1 > randomtestcard1.out
 	gcov dominion.c >> randomtestcard1.out
 	cat dominion.c.gcov >> randomtestcard1.out

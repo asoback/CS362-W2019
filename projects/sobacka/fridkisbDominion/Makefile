@@ -39,20 +39,14 @@ unittestresults: dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o cardtest3 cardtest3.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o cardtest4 cardtest4.c -lm dominion.o rngs.o
 	./unittest1 > unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./unittest2 >> unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./unittest3 >> unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./unittest4 >> unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./cardtest1 >> unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./cardtest2 >> unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./cardtest3 >> unittestresults.out
-	gcov dominion.c >> unittestresults.out
 	./cardtest4 >> unittestresults.out
+	gcov cardEffects.c >> unittestresults.out
 	gcov dominion.c >> unittestresults.out
 
 randomtest: dominion.o rngs.o

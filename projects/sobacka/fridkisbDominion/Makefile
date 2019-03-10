@@ -32,7 +32,7 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-unittestresults: dominion.o rngs.o
+unittestresults: dominion.o rngs.o cardEffects.o
 	gcc -ftest-coverage -fprofile-arcs -o unittest1 unittest1.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o unittest2 unittest2.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o unittest3 unittest3.c -lm dominion.o rngs.o
@@ -52,7 +52,7 @@ unittestresults: dominion.o rngs.o
 	gcov cardEffects.c >> unittestresults.out
 	gcov dominion.c >> unittestresults.out
 
-randomtest: dominion.o rngs.o
+randomtest: dominion.o rngs.o cardEffects.o
 	gcc -ftest-coverage -fprofile-arcs -o randomtestcard1 randomtestcard1.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o randomtestcard2 randomtestcard2.c -lm dominion.o rngs.o
 	gcc -ftest-coverage -fprofile-arcs -o randomtestadventurer randomtestadventurer.c -lm dominion.o rngs.o

@@ -54,7 +54,7 @@ int main(){
   	playCard(0, 0, 0, 0, &G);  //First parameter is the position of the adventurer in the hand (0)
 
   	// Check discard pile
-  	// assertTrue(G.discardCount[currentPlayer] == 1, __LINE__, failFlag);
+    assertTrue(G.playedCards[0] == 1, __LINE__, failFlag);
 
   	// There should only be two cards in the hand, both coppers
   	assertTrue(G.handCount[currentPlayer] == 2, __LINE__, failFlag);

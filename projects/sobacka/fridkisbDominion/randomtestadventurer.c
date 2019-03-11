@@ -105,7 +105,7 @@ int main(){
 
     //This line is being used to prevent a segfault for a known bug in the playAdventure function. Documented in my assignment 4 PDF
     if(coinAdd == 0){
-      continue;
+      //continue;
     }
     res = playCard(aPos, 0, 0 ,0, G);
     assertTrue(res == 0, __LINE__, failFlag);

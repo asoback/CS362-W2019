@@ -62,7 +62,7 @@ int main(){
   	// Check that the number of cards in hand is 3 more than previously
   	assertTrue(G.handCount[currentPlayer] == handCount + 3, __LINE__, failFlag);
 
-  	// Check deck contains 2 less than before
+  	// Check deck contains 3 less than before
   	assertTrue(G.deckCount[currentPlayer] == deckCount - 3, __LINE__, failFlag);
   	
   	// Check that smithy has been played

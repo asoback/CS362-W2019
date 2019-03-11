@@ -61,7 +61,7 @@ int main(){
 
   	// Check that there is one more buy after playing the card
   	assertTrue(G.numBuys == prevBuys + 1, __LINE__, failFlag);
-	printf("num buys %d old buys %d \n", G.numBuys, prevBuys);	
+
   	// Check that each other player has also drawn one card
   	//Each other player draws a card
   	for (i = 0; i < G.numPlayers; i++){
